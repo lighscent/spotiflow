@@ -28,6 +28,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: List build output
+        run: |
+          Write-Host "Listing dist directory:"
+          Get-ChildItem -Path dist -Recurse | Select-Object FullName
+      
+      - name: Verify build artifacts
+        run: |
+          if (-Not (Test-Path "dist/Spotiflow-Setup.exe")) {
+            Write-Error "Spotiflow-Setup.exe not found!"
+            exit 1
+          }
+          Write-Host "Build artifacts verified successfully"
+      
       - name: Read package.json
         id: package
         run: |
@@ -46,8 +59,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/Spotiflow-Setup.exe
-            dist/Spotiflow-Setup.exe.blockmap
+            dist/*.exe
+            dist/*.blockmap
           tag_name: v${{ steps.package.outputs.VERSION }}
           draft: false
           prerelease: ${{ steps.package.outputs.ISRELEASE == 'false' }}
