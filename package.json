@@ -1,6 +1,6 @@
 {
     "name": "spotiflow",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "isrelease": true,
     "description": "A lightweight, floating Spotify mini-player.",
     "author": "xl1te (lighscent)",
