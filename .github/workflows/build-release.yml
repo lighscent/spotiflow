@@ -78,7 +78,8 @@ jobs:
             $commitLog = git log --pretty=format:"- %s (%h)" | Out-String
             Write-Host "All commits (no previous tag found)"
           }
-          $commitLog = $commitLog -replace "`r`n", "%0A"
+          $commitLog = $commitLog -replace "`r`n", "`n"
+          $commitLog = $commitLog -replace "`n", "%0A"
           echo "COMMITS=$commitLog" >> $env:GITHUB_OUTPUT
       
       - name: Create Git Tag
