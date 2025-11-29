@@ -36,6 +36,8 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -53,12 +55,31 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: List build artifacts
+        run: |
+          Write-Host "Contents of dist directory:"
+          Get-ChildItem -Path dist -Recurse | Select-Object FullName, Length
+      
       - name: Read package.json
         id: package
         run: |
           $content = Get-Content package.json | ConvertFrom-Json
           echo "VERSION=$($content.version)" >> $env:GITHUB_OUTPUT
           echo "ISRELEASE=$($content.isrealease)" >> $env:GITHUB_OUTPUT
+      
+      - name: Get commit history
+        id: commits
+        run: |
+          $previousTag = git describe --tags --abbrev=0 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            $commitLog = git log "$previousTag..HEAD" --pretty=format:"- %s (%h)" | Out-String
+            Write-Host "Commits since $previousTag"
+          } else {
+            $commitLog = git log --pretty=format:"- %s (%h)" | Out-String
+            Write-Host "All commits (no previous tag found)"
+          }
+          $commitLog = $commitLog -replace "`r`n", "%0A"
+          echo "COMMITS=$commitLog" >> $env:GITHUB_OUTPUT
       
       - name: Create Git Tag
         run: |
@@ -71,15 +92,20 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/*.exe
-            dist/*.blockmap
+            dist/Spotiflow Setup ${{ steps.package.outputs.VERSION }}.exe
+            dist/Spotiflow Setup ${{ steps.package.outputs.VERSION }}.exe.blockmap
           tag_name: v${{ steps.package.outputs.VERSION }}
           draft: false
           prerelease: ${{ steps.package.outputs.ISRELEASE == 'false' }}
           body: |
-            Commit: ${{ github.event.head_commit.id }}
-            User: ${{ github.event.head_commit.author.name }}
-            Message: ${{ github.event.head_commit.message }}
-            Date: ${{ github.event.head_commit.timestamp }}
+            ## Release v${{ steps.package.outputs.VERSION }}
+            
+            ### Changes
+            ${{ steps.commits.outputs.COMMITS }}
+            
+            ### Build Information
+            - **Commit**: ${{ github.event.head_commit.id }}
+            - **Author**: ${{ github.event.head_commit.author.name }}
+            - **Date**: ${{ github.event.head_commit.timestamp }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
