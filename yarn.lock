@@ -896,10 +896,10 @@ electron-publish@26.0.11:
     lazy-val "^1.0.5"
     mime "^2.5.2"
 
-electron@^39.1.1:
-  version "39.1.1"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-39.1.1.tgz#cc15ceab2f54ce31ca0fa7606f17ddfa61c6fd3e"
-  integrity sha512-VuFEI1yQ7BH3RYI5VZtwFlzGp4rpPRd5oEc26ZQIItVLcLTbXt4/O7o4hs+1fyg9Q3NvGAifgX5Vp5EBOIFpAg==
+electron@^39.2.4:
+  version "39.2.4"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-39.2.4.tgz#5ba17fd8fbfc5e6e50e6855f31b433a558030bea"
+  integrity sha512-KxPtwpFceQKSxRtUY39piHLYhJMMyHfOhc70e6zRnKGrbRdK6hzEqssth8IGjlKOdkeT4KCvIEngnNraYk39+g==
   dependencies:
     "@electron/get" "^2.0.0"
     "@types/node" "^22.7.7"
@@ -1443,9 +1443,9 @@ jake@^10.8.5:
     picocolors "^1.1.1"
 
 js-yaml@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
-  integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.1.tgz#854c292467705b699476e1a2decc0c8a3458806b"
+  integrity sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==
   dependencies:
     argparse "^2.0.1"
 
