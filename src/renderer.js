@@ -1,10 +1,9 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, shell } = require('electron');
 const SpotifyWebApi = require('spotify-web-api-node');
 
 const redirectUri = 'spotiflow://callback';
 
 let spotifyApi;
-
 let isPlaying = false;
 let refreshInterval = null;
 let lastRefreshTime = 0;
@@ -86,7 +85,7 @@ function handleAuthClick() {
         const scopes = ['user-read-currently-playing', 'user-modify-playback-state', 'user-read-playback-state'];
         const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
         console.log('Opening URL:', authorizeURL);
-        require('electron').shell.openExternal(authorizeURL);
+        shell.openExternal(authorizeURL);
     } catch (err) {
         console.error('Auth error:', err);
     }
@@ -94,7 +93,6 @@ function handleAuthClick() {
 
 function minimizeWindow() {
     try {
-        const { ipcRenderer } = require('electron');
         ipcRenderer.send('minimize-window');
     } catch (err) {
         console.error('Minimize error:', err);

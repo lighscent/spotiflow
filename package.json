@@ -7,7 +7,8 @@
     "main": "src/main.js",
     "license": "MIT",
     "scripts": {
-        "build": "electron-builder"
+        "build": "cross-env NODE_NO_WARNINGS=1 electron-builder",
+        "build:verbose": "electron-builder"
     },
     "build": {
         "appId": "com.spotiflow.app",
@@ -40,8 +41,9 @@
         "spotify-web-api-node": "^5.0.2"
     },
     "devDependencies": {
+        "cross-env": "^10.1.0",
         "electron": "^39.2.4",
-        "electron-builder": "^26.0.12"
+        "electron-builder": "^25.1.8"
     },
     "resolutions": {
         "glob": "^10.5.0",

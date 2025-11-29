@@ -16,40 +16,44 @@ if (!gotTheLock) {
     app.setAsDefaultProtocolClient('spotiflow');
 
     function createWindow() {
-        const { screen } = require('electron');
-        const primaryDisplay = screen.getPrimaryDisplay();
-        const { width, height } = primaryDisplay.workAreaSize;
+        try {
+            const { screen } = require('electron');
+            const primaryDisplay = screen.getPrimaryDisplay();
+            const { width, height } = primaryDisplay.workAreaSize;
 
-        mainWindow = new BrowserWindow({
-            width: 300,
-            height: 150,
-            x: width - 320,
-            y: 20,
-            frame: false,
-            transparent: true,
-            alwaysOnTop: false,
-            skipTaskbar: true,
-            resizable: false,
-            icon: path.join(__dirname, 'imgs', 'spotiflow.png'),
-            webPreferences: {
-                nodeIntegration: true,
-                contextIsolation: false,
-                enableRemoteModule: true
-            }
-        });
+            mainWindow = new BrowserWindow({
+                width: 300,
+                height: 150,
+                x: width - 320,
+                y: 20,
+                frame: false,
+                transparent: true,
+                alwaysOnTop: false,
+                skipTaskbar: true,
+                resizable: false,
+                icon: path.join(__dirname, 'imgs', 'spotiflow.png'),
+                webPreferences: {
+                    nodeIntegration: true,
+                    contextIsolation: false,
+                    enableRemoteModule: true
+                }
+            });
 
-        require('@electron/remote/main').enable(mainWindow.webContents);
+            require('@electron/remote/main').enable(mainWindow.webContents);
 
-        mainWindow.loadFile(path.join(__dirname, 'index.html'));
-        mainWindow.setAlwaysOnTop(false, 'floating');
+            mainWindow.loadFile(path.join(__dirname, 'index.html'));
+            mainWindow.setAlwaysOnTop(false, 'floating');
 
-        mainWindow.on('close', (event) => {
-            if (!app.isQuiting) {
-                event.preventDefault();
-                mainWindow.hide();
-            }
-            return false;
-        });
+            mainWindow.on('close', (event) => {
+                if (!app.isQuiting) {
+                    event.preventDefault();
+                    mainWindow.hide();
+                }
+                return false;
+            });
+        } catch (error) {
+            console.error('Error creating main window:', error);
+        }
     }
 
     function createSetupWindow() {
@@ -58,24 +62,31 @@ if (!gotTheLock) {
             return;
         }
 
-        setupWindow = new BrowserWindow({
-            width: 400,
-            height: 550,
-            title: 'Spotiflow Setup',
-            resizable: false,
-            autoHideMenuBar: true,
-            icon: path.join(__dirname, 'imgs', 'spotiflow.png'),
-            webPreferences: {
-                nodeIntegration: true,
-                contextIsolation: false
-            }
-        });
+        try {
+            setupWindow = new BrowserWindow({
+                width: 400,
+                height: 550,
+                title: 'Spotiflow Setup',
+                resizable: false,
+                autoHideMenuBar: true,
+                icon: path.join(__dirname, 'imgs', 'spotiflow.png'),
+                webPreferences: {
+                    nodeIntegration: true,
+                    contextIsolation: false,
+                    enableRemoteModule: true
+                }
+            });
 
-        setupWindow.loadFile(path.join(__dirname, 'config.html'));
+            require('@electron/remote/main').enable(setupWindow.webContents);
 
-        setupWindow.on('closed', () => {
-            setupWindow = null;
-        });
+            setupWindow.loadFile(path.join(__dirname, 'config.html'));
+
+            setupWindow.on('closed', () => {
+                setupWindow = null;
+            });
+        } catch (error) {
+            console.error('Error creating setup window:', error);
+        }
     }
 
     function createTray() {
