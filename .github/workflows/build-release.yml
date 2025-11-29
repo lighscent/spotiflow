@@ -28,19 +28,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: List build output
-        run: |
-          Write-Host "Listing dist directory:"
-          Get-ChildItem -Path dist -Recurse | Select-Object FullName
-      
-      - name: Verify build artifacts
-        run: |
-          if (-Not (Test-Path "dist/Spotiflow-Setup.exe")) {
-            Write-Error "Spotiflow-Setup.exe not found!"
-            exit 1
-          }
-          Write-Host "Build artifacts verified successfully"
-      
       - name: Read package.json
         id: package
         run: |
