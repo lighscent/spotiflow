@@ -1,5 +1,7 @@
 # Spotiflow
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Latest Release](https://img.shields.io/github/v/release/lighscent/spotiflow)](https://github.com/lighscent/spotiflow/releases) [![Downloads](https://img.shields.io/github/downloads/lighscent/spotiflow/total?label=downloads)](https://github.com/lighscent/spotiflow/releases) [![GitHub Stars](https://img.shields.io/github/stars/lighscent/spotiflow?style=flat)](https://github.com/lighscent/spotiflow)
+
 A lightweight, floating Spotify mini-player built with Electron. Spotiflow sits quietly on your desktop, giving you quick control over your music without interrupting your workflow.
 
 ## Features
