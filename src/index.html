@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spotify Widget</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: transparent;
+        overflow: hidden;
+      }
+
+      .widget {
+        width: 300px;
+        height: 150px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.25) 0%,
+          rgba(255, 255, 255, 0.12) 100%
+        );
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .drag-bar {
+        height: 24px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.15) 0%,
+          rgba(255, 255, 255, 0.05) 100%
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        -webkit-app-region: drag;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+      }
+
+      .drag-bar-title {
+        font-size: 9px;
+        font-weight: 600;
+        opacity: 0.8;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .window-controls {
+        display: flex;
+        gap: 6px;
+        -webkit-app-region: no-drag;
+      }
+
+      .window-btn {
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #fff;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .window-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(1.05);
+      }
+
+      .close-btn:hover {
+        background: rgba(255, 59, 48, 0.8);
+        border-color: rgba(255, 59, 48, 0.8);
+      }
+
+      .content {
+        flex: 1;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #auth-btn {
+        background: linear-gradient(
+          135deg,
+          rgba(30, 215, 96, 0.9) 0%,
+          rgba(29, 185, 84, 0.9) 100%
+        );
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 600;
+        -webkit-app-region: no-drag;
+        width: 100%;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(30, 215, 96, 0.3);
+      }
+
+      #auth-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(30, 215, 96, 0.4);
+      }
+
+      .player-content {
+        display: flex;
+        gap: 8px;
+        flex: 1;
+      }
+
+      .album-art {
+        width: 65px;
+        height: 65px;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .track-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+      }
+
+      .track-details {
+        overflow: hidden;
+      }
+
+      .track-name {
+        font-size: 11px;
+        font-weight: 700;
+        margin-bottom: 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .track-artist {
+        font-size: 9px;
+        opacity: 0.9;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .progress-container {
+        margin-top: 4px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        overflow: hidden;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(30, 215, 96, 0.9) 0%,
+          rgba(29, 185, 84, 0.9) 100%
+        );
+        border-radius: 2px;
+        transition: width 0.3s linear;
+        box-shadow: 0 0 8px rgba(30, 215, 96, 0.5);
+      }
+
+      .progress-time {
+        display: flex;
+        justify-content: space-between;
+        font-size: 7px;
+        opacity: 0.7;
+        margin-top: 2px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .controls-row {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        -webkit-app-region: no-drag;
+        margin-top: 8px;
+      }
+
+      .volume-control {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        flex: 0 0 60px;
+        order: -1;
+      }
+
+      .volume-icon {
+        font-size: 9px;
+        opacity: 0.8;
+        width: 12px;
+        text-align: center;
+      }
+
+      .volume-slider {
+        width: 45px;
+        height: 3px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        outline: none;
+      }
+
+      .volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 9px;
+        height: 9px;
+        background: linear-gradient(
+          135deg,
+          rgba(30, 215, 96, 0.9) 0%,
+          rgba(29, 185, 84, 0.9) 100%
+        );
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex: 0 0 auto;
+      }
+
+      #controls button {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      #controls button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.08);
+      }
+
+      #play-pause {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(30, 215, 96, 0.9) 0%,
+          rgba(29, 185, 84, 0.9) 100%
+        );
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow: 0 4px 12px rgba(30, 215, 96, 0.4);
+      }
+
+      #play-pause:hover {
+        box-shadow: 0 6px 16px rgba(30, 215, 96, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="widget">
+      <div class="drag-bar">
+        <span class="drag-bar-title"
+          ><i class="fas fa-music"></i> SpotiFlow</span
+        >
+        <div class="window-controls">
+          <button class="window-btn minimize-btn" id="minimize-btn">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button class="window-btn close-btn" id="close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <div id="auth-section">
+          <button id="auth-btn">Connect Spotify</button>
+        </div>
+
+        <div id="player-section" style="display: none">
+          <div class="player-content">
+            <img id="album-art" class="album-art" src="" alt="Album" />
+            <div class="track-info">
+              <div class="track-details">
+                <div class="track-name" id="track-name"></div>
+                <div class="track-artist" id="track-artist"></div>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar">
+                  <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-time">
+                  <span id="current-time">0:00</span>
+                  <span id="total-time">0:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="controls-row" id="controls-row">
+            <div class="volume-control" id="volume-control">
+              <i class="fas fa-volume-up volume-icon"></i>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+                class="volume-slider"
+                id="volume-slider"
+              />
+            </div>
+            <div id="controls">
+              <button id="back"><i class="fas fa-step-backward"></i></button>
+              <button id="play-pause"><i class="fas fa-pause"></i></button>
+              <button id="skip"><i class="fas fa-step-forward"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

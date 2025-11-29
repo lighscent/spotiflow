@@ -1,0 +1,46 @@
+{
+    "name": "spotiflow",
+    "version": "1.0.1",
+    "isrelease": true,
+    "description": "A lightweight, floating Spotify mini-player.",
+    "author": "xl1te (lighscent)",
+    "main": "src/main.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "electron-builder"
+    },
+    "build": {
+        "appId": "com.spotiflow.app",
+        "productName": "Spotiflow",
+        "compression": "store",
+        "win": {
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ],
+            "icon": "src/imgs/spotiflow.png"
+        },
+        "protocols": {
+            "name": "spotiflow-protocol",
+            "schemes": [
+                "spotiflow"
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true
+        }
+    },
+    "dependencies": {
+        "@electron/remote": "^2.1.3",
+        "spotify-web-api-node": "^5.0.2"
+    },
+    "devDependencies": {
+        "electron": "^39.2.4",
+        "electron-builder": "^26.0.12"
+    }
+}

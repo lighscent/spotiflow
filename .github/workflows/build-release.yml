@@ -1,0 +1,60 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install
+      
+      - name: Build executable
+        run: yarn build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Read package.json
+        id: package
+        run: |
+          $content = Get-Content package.json | ConvertFrom-Json
+          echo "VERSION=$($content.version)" >> $env:GITHUB_OUTPUT
+          echo "ISRELEASE=$($content.isrealease)" >> $env:GITHUB_OUTPUT
+      
+      - name: Create Git Tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag -a v${{ steps.package.outputs.VERSION }} -m "Release v${{ steps.package.outputs.VERSION }}"
+          git push origin v${{ steps.package.outputs.VERSION }}
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/Spotiflow-Setup.exe
+            dist/Spotiflow-Setup.exe.blockmap
+          tag_name: v${{ steps.package.outputs.VERSION }}
+          draft: false
+          prerelease: ${{ steps.package.outputs.ISRELEASE == 'false' }}
+          body: |
+            Commit: ${{ github.event.head_commit.id }}
+            User: ${{ github.event.head_commit.author.name }}
+            Message: ${{ github.event.head_commit.message }}
+            Date: ${{ github.event.head_commit.timestamp }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
