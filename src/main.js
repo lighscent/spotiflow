@@ -15,6 +15,19 @@ if (!gotTheLock) {
     // Register custom protocol
     app.setAsDefaultProtocolClient('spotiflow');
 
+    function setAutoLaunch(enable) {
+        app.setLoginItemSettings({
+            openAtLogin: enable,
+            openAsHidden: false,
+            path: app.getPath('exe'),
+            args: []
+        });
+    }
+
+    function isAutoLaunchEnabled() {
+        return app.getLoginItemSettings().openAtLogin;
+    }
+
     function createWindow() {
         try {
             const { screen } = require('electron');
@@ -94,6 +107,15 @@ if (!gotTheLock) {
         const contextMenu = Menu.buildFromTemplate([
             { label: 'Show Spotiflow', click: () => mainWindow.show() },
             {
+                label: 'Auto Launch at Startup',
+                type: 'checkbox',
+                checked: isAutoLaunchEnabled(),
+                click: (menuItem) => {
+                    setAutoLaunch(menuItem.checked);
+                }
+            },
+            { type: 'separator' },
+            {
                 label: 'Quit', click: () => {
                     app.isQuiting = true;
                     app.quit();
@@ -111,6 +133,11 @@ if (!gotTheLock) {
     app.whenReady().then(() => {
         createWindow();
         createTray();
+
+        if (localStorage.getItem('first-run') === null) {
+            setAutoLaunch(true);
+            localStorage.setItem('first-run', 'false');
+        }
     });
 
     app.on('window-all-closed', () => {
@@ -130,6 +157,15 @@ if (!gotTheLock) {
                 mainWindow.webContents.send('oauth-code', code);
             }
         }
+    });
+
+    ipcMain.on('toggle-auto-launch', (event, enable) => {
+        setAutoLaunch(enable);
+        event.reply('auto-launch-status', isAutoLaunchEnabled());
+    });
+
+    ipcMain.on('get-auto-launch-status', (event) => {
+        event.reply('auto-launch-status', isAutoLaunchEnabled());
     });
 
     ipcMain.on('minimize-window', () => {
