@@ -5,8 +5,33 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      is_new_version: ${{ steps.check.outputs.is_new_version }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check if version tag exists
+        id: check
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Checking version: v$VERSION"
+          if git ls-remote --exit-code --tags origin "v$VERSION"; then
+            echo "Tag v$VERSION already exists."
+            echo "is_new_version=false" >> $GITHUB_OUTPUT
+          else
+            echo "Tag v$VERSION does not exist. Proceeding with release."
+            echo "is_new_version=true" >> $GITHUB_OUTPUT
+          fi
+
   build:
+    needs: check-version
+    if: needs.check-version.outputs.is_new_version == 'true'
     runs-on: windows-latest
     
     steps:
