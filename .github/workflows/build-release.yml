@@ -72,14 +72,13 @@ jobs:
         run: |
           $previousTag = git describe --tags --abbrev=0 2>$null
           if ($LASTEXITCODE -eq 0) {
-            $commitLog = git log "$previousTag..HEAD" --pretty=format:"- %s (%h)" | Out-String
+            $commitLog = git log "$previousTag..HEAD" --pretty=format:"- %s (%h)"
             Write-Host "Commits since $previousTag"
           } else {
-            $commitLog = git log --pretty=format:"- %s (%h)" | Out-String
+            $commitLog = git log --pretty=format:"- %s (%h)"
             Write-Host "All commits (no previous tag found)"
           }
-          $commitLog = $commitLog -replace "`r`n", "`n"
-          $commitLog = $commitLog -replace "`n", "%0A"
+          $commitLog = $commitLog -join "`n"
           echo "COMMITS=$commitLog" >> $env:GITHUB_OUTPUT
       
       - name: Create Git Tag
