@@ -237,16 +237,16 @@
   integrity sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==
 
 "@types/node@*":
-  version "24.10.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.10.1.tgz#91e92182c93db8bd6224fca031e2370cef9a8f01"
-  integrity sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ==
+  version "25.0.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.0.3.tgz#79b9ac8318f373fbfaaf6e2784893efa9701f269"
+  integrity sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==
   dependencies:
     undici-types "~7.16.0"
 
 "@types/node@^22.7.7":
-  version "22.19.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.19.1.tgz#1188f1ddc9f46b4cc3aec76749050b4e1f459b7b"
-  integrity sha512-LCCV0HdSZZZb34qifBsyWlUmok6W7ouER+oQIGBScS8EsZsQbrtFTUrDX4hOl+CS6p7cnNC4td+qrSVGSCTUfQ==
+  version "22.19.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.19.3.tgz#8dfde7630d7a8528dc9b34db23d34f764467c02c"
+  integrity sha512-1N9SBnWYOJTrNZCdh/yJE+t910Y128BoyY+zBLWhL3r0TYzlTmFdXrPwHL9DyFZmlEXNQQolTZh3KHV31QDhyA==
   dependencies:
     undici-types "~6.21.0"
 
@@ -334,10 +334,10 @@ app-builder-bin@5.0.0-alpha.12:
   resolved "https://registry.yarnpkg.com/app-builder-bin/-/app-builder-bin-5.0.0-alpha.12.tgz#2daf82f8badc698e0adcc95ba36af4ff0650dc80"
   integrity sha512-j87o0j6LqPL3QRr8yid6c+Tt5gC7xNfYo6uQIQkorAC6MpeayVMZrEDzKmJJ/Hlv7EnOQpaRm53k6ktDYZyB6w==
 
-app-builder-lib@26.3.2:
-  version "26.3.2"
-  resolved "https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-26.3.2.tgz#fd2f48f7d21c4c091ea999ab0ca99038eebd482c"
-  integrity sha512-ZG4wzxbmmiLUm+W0wXMlMI0LHXK/fsR+Rf21SUs7avujGQ7ZCFLgmIvvWaQ69u1EFnSkYZ2sefKqk1yW/HXeuw==
+app-builder-lib@26.4.0:
+  version "26.4.0"
+  resolved "https://registry.yarnpkg.com/app-builder-lib/-/app-builder-lib-26.4.0.tgz#649b4a98b51a90141b73e4f12a74ac5bc0f2eff4"
+  integrity sha512-Uas6hNe99KzP3xPWxh5LGlH8kWIVjZixzmMJHNB9+6hPyDpjc7NQMkVgi16rQDdpCFy22ZU5sp8ow7tvjeMgYQ==
   dependencies:
     "@develar/schema-utils" "~2.6.5"
     "@electron/asar" "3.4.1"
@@ -349,7 +349,7 @@ app-builder-lib@26.3.2:
     "@malept/flatpak-bundler" "^0.4.0"
     "@types/fs-extra" "9.0.13"
     async-exit-hook "^2.0.1"
-    builder-util "26.3.1"
+    builder-util "26.3.4"
     builder-util-runtime "9.5.1"
     chromium-pickle-js "^0.2.0"
     ci-info "4.3.1"
@@ -357,7 +357,7 @@ app-builder-lib@26.3.2:
     dotenv "^16.4.5"
     dotenv-expand "^11.0.6"
     ejs "^3.1.8"
-    electron-publish "26.3.1"
+    electron-publish "26.3.4"
     fs-extra "^10.1.0"
     hosted-git-info "^4.1.0"
     isbinaryfile "^5.0.0"
@@ -368,7 +368,7 @@ app-builder-lib@26.3.2:
     minimatch "^10.0.3"
     plist "3.1.0"
     resedit "^1.7.0"
-    semver "7.7.2"
+    semver "~7.7.3"
     tar "^6.1.12"
     temp-file "^3.4.0"
     tiny-async-pool "1.3.0"
@@ -474,17 +474,16 @@ builder-util-runtime@9.5.1:
     debug "^4.3.4"
     sax "^1.2.4"
 
-builder-util@26.3.1:
-  version "26.3.1"
-  resolved "https://registry.yarnpkg.com/builder-util/-/builder-util-26.3.1.tgz#9b86e152d16a7f3a9d0a246ac120a529f6c1e4a6"
-  integrity sha512-pplZEYBx1g15qvIOshpR1WTwjAwQM4ukhGgSNdYPnbuM6wLePq3+njy1sGfekCrJmUP+2xfuwuT9zEoUWfX5zQ==
+builder-util@26.3.4:
+  version "26.3.4"
+  resolved "https://registry.yarnpkg.com/builder-util/-/builder-util-26.3.4.tgz#eb20e2e2895fe360360eddded5d8cf12ad2aad60"
+  integrity sha512-aRn88mYMktHxzdqDMF6Ayj0rKoX+ZogJ75Ck7RrIqbY/ad0HBvnS2xA4uHfzrGr5D2aLL3vU6OBEH4p0KMV2XQ==
   dependencies:
     "7zip-bin" "~5.2.0"
     "@types/debug" "^4.1.6"
     app-builder-bin "5.0.0-alpha.12"
     builder-util-runtime "9.5.1"
     chalk "^4.1.2"
-    ci-info "^4.2.0"
     cross-spawn "^7.0.6"
     debug "^4.3.4"
     fs-extra "^10.1.0"
@@ -758,13 +757,13 @@ dir-compare@^4.2.0:
     minimatch "^3.0.5"
     p-limit "^3.1.0 "
 
-dmg-builder@26.3.2:
-  version "26.3.2"
-  resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-26.3.2.tgz#2eaa5a6b8882ed976e74caab9780c6248fb03fd6"
-  integrity sha512-UM7/WRmESXnKXBShmKJ+xiEQ3U82/zb/tyaCKGn4Y4cf+WynLzQPeBToZtrIXTs3ZPyJQBIf+btkoCzVVnhO4g==
+dmg-builder@26.4.0:
+  version "26.4.0"
+  resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-26.4.0.tgz#dc7edec167b06b1542804e6e4220d1bcaf952b71"
+  integrity sha512-ce4Ogns4VMeisIuCSK0C62umG0lFy012jd8LMZ6w/veHUeX4fqfDrGe+HTWALAEwK6JwKP+dhPvizhArSOsFbg==
   dependencies:
-    app-builder-lib "26.3.2"
-    builder-util "26.3.1"
+    app-builder-lib "26.4.0"
+    builder-util "26.3.4"
     fs-extra "^10.1.0"
     iconv-lite "^0.6.2"
     js-yaml "^4.1.0"
@@ -819,28 +818,28 @@ ejs@^3.1.8:
     jake "^10.8.5"
 
 electron-builder@^26.3.2:
-  version "26.3.2"
-  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-26.3.2.tgz#9be1f189f548dab749be1d7e13a7cac7a5736aa9"
-  integrity sha512-Lbfw8KHx1gxmg0tRFKb67hdvqzaz+ha4Ab5l6iQWo3o2yoVImiiJeifs8PSM5evo3BQWCLKtSQaSdZxg1ldIdg==
+  version "26.4.0"
+  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-26.4.0.tgz#f9a8598f045ded4cbaf41efb7bb18a89619c5dd2"
+  integrity sha512-FCUqvdq2AULL+Db2SUGgjOYTbrgkPxZtCjqIZGnjH9p29pTWyesQqBIfvQBKa6ewqde87aWl49n/WyI/NyUBog==
   dependencies:
-    app-builder-lib "26.3.2"
-    builder-util "26.3.1"
+    app-builder-lib "26.4.0"
+    builder-util "26.3.4"
     builder-util-runtime "9.5.1"
     chalk "^4.1.2"
     ci-info "^4.2.0"
-    dmg-builder "26.3.2"
+    dmg-builder "26.4.0"
     fs-extra "^10.1.0"
     lazy-val "^1.0.5"
     simple-update-notifier "2.0.0"
     yargs "^17.6.2"
 
-electron-publish@26.3.1:
-  version "26.3.1"
-  resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-26.3.1.tgz#adb092cf32c7008732316d7238d63f533c3fc3ce"
-  integrity sha512-XYGYL/fpQULLW9slTVPelaUOGlKfOTmV2Uda3K+qzFzvNnkGJCj7L0nLVvMuj5cgxpAX+3BhO5HOUb4rv6jikA==
+electron-publish@26.3.4:
+  version "26.3.4"
+  resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-26.3.4.tgz#ed05f1ccbb7ee1e53b4140d92735e26fa4bfefd7"
+  integrity sha512-5/ouDPb73SkKuay2EXisPG60LTFTMNHWo2WLrK5GDphnWK9UC+yzYrzVeydj078Yk4WUXi0+TaaZsNd6Zt5k/A==
   dependencies:
     "@types/fs-extra" "^9.0.11"
-    builder-util "26.3.1"
+    builder-util "26.3.4"
     builder-util-runtime "9.5.1"
     chalk "^4.1.2"
     form-data "^4.0.0"
@@ -849,9 +848,9 @@ electron-publish@26.3.1:
     mime "^2.5.2"
 
 electron@^39.2.4:
-  version "39.2.4"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-39.2.4.tgz#5ba17fd8fbfc5e6e50e6855f31b433a558030bea"
-  integrity sha512-KxPtwpFceQKSxRtUY39piHLYhJMMyHfOhc70e6zRnKGrbRdK6hzEqssth8IGjlKOdkeT4KCvIEngnNraYk39+g==
+  version "39.2.7"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-39.2.7.tgz#1cf2371304994fe26c564764bd50878fe405fb4b"
+  integrity sha512-KU0uFS6LSTh4aOIC3miolcbizOFP7N1M46VTYVfqIgFiuA2ilfNaOHLDS9tCMvwwHRowAsvqBrh9NgMXcTOHCQ==
   dependencies:
     "@electron/get" "^2.0.0"
     "@types/node" "^22.7.7"
@@ -1033,9 +1032,9 @@ fs-extra@^10.0.0, fs-extra@^10.1.0:
     universalify "^2.0.0"
 
 fs-extra@^11.1.1:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.3.2.tgz#c838aeddc6f4a8c74dd15f85e11fe5511bfe02a4"
-  integrity sha512-Xr9F6z6up6Ws+NjzMCZc6WXg2YFRlrLP9NQDO3VQrWrfiojdhS56TzueT88ze0uBdCTwEIhQ3ptnmKeWGFAe0A==
+  version "11.3.3"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.3.3.tgz#a27da23b72524e81ac6c3815cc0179b8c74c59ee"
+  integrity sha512-VWSRii4t0AFm6ixFFmLLx1t7wS1gh+ckoa84aOeapGum0h+EZd1EhEumSB+ZdDLnEPuucsVB9oB7cxJHap6Afg==
   dependencies:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
@@ -1889,11 +1888,6 @@ semver-compare@^1.0.0:
   resolved "https://registry.yarnpkg.com/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"
   integrity sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==
 
-semver@7.7.2:
-  version "7.7.2"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.2.tgz#67d99fdcd35cec21e6f8b87a7fd515a33f982b58"
-  integrity sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==
-
 semver@^5.5.0:
   version "5.7.2"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.2.tgz#48d55db737c3287cd4835e17fa13feace1c41ef8"
@@ -1904,7 +1898,7 @@ semver@^6.2.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.2, semver@^7.3.5, semver@^7.5.3, semver@^7.6.3:
+semver@^7.3.2, semver@^7.3.5, semver@^7.5.3, semver@^7.6.3, semver@~7.7.3:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
   integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
