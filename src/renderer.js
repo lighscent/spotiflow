@@ -62,11 +62,12 @@ function checkAndSetupCredentials() {
                 // Read the base64 string, convert to buffer, and decrypt
                 const buffer = Buffer.from(storedClientSecret, 'base64');
                 clientSecret = safeStorage.decryptString(buffer);
+                initializeSpotifyApi(storedClientId, clientSecret);
             } else {
-                clientSecret = storedClientSecret;
+                ipcRenderer.send('open-setup-window');
+                return;
             }
 
-            initializeSpotifyApi(storedClientId, clientSecret);
         } catch (error) {
             console.error('Failed to decrypt credentials:', error);
             ipcRenderer.send('open-setup-window');
@@ -88,13 +89,15 @@ function initializeSpotifyApi(clientId, clientSecret) {
 // Listen for settings saved from setup window
 ipcRenderer.on('settings-received', (event, data) => {
     const { clientId, clientSecret } = data;
+
     localStorage.setItem('spotify_client_id', clientId);
+
     if (safeStorage.isEncryptionAvailable()) {
         const encryptedSecret = safeStorage.encryptString(clientSecret).toString('base64');
         localStorage.setItem('spotify_client_secret', encryptedSecret);
     } else {
-        console.warn('safeStorage is not available. Storing in plain text.');
-        localStorage.setItem('spotify_client_secret', clientSecret);
+        console.warn('safeStorage is not available. Credentials will not be persisted.');
+        localStorage.removeItem('spotify_client_secret');
     }
     initializeSpotifyApi(clientId, clientSecret);
 });
