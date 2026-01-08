@@ -1,4 +1,5 @@
 const { ipcRenderer, shell } = require('electron');
+const { safeStorage } = require('@electron/remote');
 const SpotifyWebApi = require('spotify-web-api-node');
 
 const redirectUri = 'spotiflow://callback';
@@ -55,7 +56,21 @@ function checkAndSetupCredentials() {
     const storedClientSecret = localStorage.getItem('spotify_client_secret');
 
     if (storedClientId && storedClientSecret) {
-        initializeSpotifyApi(storedClientId, storedClientSecret);
+        try {
+            let clientSecret;
+            if (safeStorage.isEncryptionAvailable()) {
+                // Read the base64 string, convert to buffer, and decrypt
+                const buffer = Buffer.from(storedClientSecret, 'base64');
+                clientSecret = safeStorage.decryptString(buffer);
+            } else {
+                clientSecret = storedClientSecret;
+            }
+
+            initializeSpotifyApi(storedClientId, clientSecret);
+        } catch (error) {
+            console.error('Failed to decrypt credentials:', error);
+            ipcRenderer.send('open-setup-window');
+        }
     } else {
         ipcRenderer.send('open-setup-window');
     }
@@ -74,7 +89,13 @@ function initializeSpotifyApi(clientId, clientSecret) {
 ipcRenderer.on('settings-received', (event, data) => {
     const { clientId, clientSecret } = data;
     localStorage.setItem('spotify_client_id', clientId);
-    localStorage.setItem('spotify_client_secret', clientSecret);
+    if (safeStorage.isEncryptionAvailable()) {
+        const encryptedSecret = safeStorage.encryptString(clientSecret).toString('base64');
+        localStorage.setItem('spotify_client_secret', encryptedSecret);
+    } else {
+        console.warn('safeStorage is not available. Storing in plain text.');
+        localStorage.setItem('spotify_client_secret', clientSecret);
+    }
     initializeSpotifyApi(clientId, clientSecret);
 });
 
